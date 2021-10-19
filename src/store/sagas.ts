@@ -41,13 +41,9 @@ export function* requestExecutor(
     yield call(ajax, fullRequestConfig);
   } catch (e) {
     const unauthorizedAccessStatusCode = 401;
-    if (e instanceof Error) {
-      if (
-        getErrorData(e).responseData?.status === unauthorizedAccessStatusCode
-      ) {
-        yield put(authActions.setIsAuthenticated(false));
-        yield put(authActions.SetUserData(null));
-      }
+    if (getErrorData(e).responseData?.status === unauthorizedAccessStatusCode) {
+      yield put(authActions.setIsAuthenticated(false));
+      yield put(authActions.SetUserData(null));
     }
 
     throw e;

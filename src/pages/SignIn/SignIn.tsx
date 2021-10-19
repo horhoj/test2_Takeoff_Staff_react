@@ -2,6 +2,8 @@ import React from 'react';
 import { Box, Button, styled, TextField, Typography } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import { FormikConfig, useFormik } from 'formik';
+import { useAppDispatch } from '../../store/hooks';
+import { authWorkers } from '../../store/auth';
 import { SignUpFormData, signUpSchema } from './types';
 
 const initialValues: SignUpFormData = {
@@ -14,12 +16,13 @@ export const SignIn: React.FC = () => {
     initialValues,
     onSubmit: (values) => {
       const msg = JSON.stringify(values, null, 2);
-      alert(msg);
+      dispatch(authWorkers.authSignUp(values));
     },
     validationSchema: signUpSchema,
   };
 
   const formik = useFormik(formikConfig);
+  const dispatch = useAppDispatch();
 
   return (
     <Wrap>

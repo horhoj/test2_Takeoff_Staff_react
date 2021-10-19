@@ -15,7 +15,7 @@ import {
   getTokenRequestConfig,
   getTokenRevokeRequestConfig,
   getUserDataRequestConfig,
-} from './helpers';
+} from './requests';
 import { authActions } from './index';
 
 export function* authWatcher(): SagaIterator {
@@ -51,14 +51,12 @@ export function* signInWorker(action: AuthSignInWorker): SagaIterator {
     yield put(authActions.SetUserData(responseToUserDataRequest.data));
     yield put(authActions.setIsAuthenticated(true));
   } catch (e) {
-    if (e instanceof Error) {
-      const errorData: ReturnType<typeof getErrorData> = yield call(
-        getErrorData,
-        e,
-      );
-      yield call(logger, 'signUpWorker errors', errorData);
-      yield put(authActions.SetRequestError(errorData));
-    }
+    const errorData: ReturnType<typeof getErrorData> = yield call(
+      getErrorData,
+      e,
+    );
+    yield call(logger, 'signUpWorker errors', errorData);
+    yield put(authActions.SetRequestError(errorData));
   } finally {
     yield put(authActions.setIsLoading(false));
   }
@@ -83,9 +81,7 @@ export function* getUserDataWorker(): SagaIterator {
     yield put(authActions.SetUserData(responseToUserDataRequest.data));
     yield put(authActions.setIsAuthenticated(true));
   } catch (e) {
-    if (e instanceof Error) {
-      yield call(logger, 'getUserDataWorker errors', getErrorData(e));
-    }
+    yield call(logger, 'getUserDataWorker errors', getErrorData(e));
   } finally {
     yield put(authActions.SetIsLoadingUserData(false));
   }
@@ -108,9 +104,7 @@ export function* signOutWorker(): SagaIterator {
 
     yield call([localStorage, localStorage.removeItem], ACCESS_TOKEN_LS_KEY);
   } catch (e) {
-    if (e instanceof Error) {
-      yield call(logger, 'signOutWorker errors', getErrorData(e));
-    }
+    yield call(logger, 'signOutWorker errors', getErrorData(e));
   } finally {
     yield put(authActions.setIsLoading(false));
   }

@@ -3,7 +3,8 @@ import { AnyObjectSchema } from 'yup';
 import { API_URL, DEFAULT_REQUEST_HEADERS } from '../config/app';
 import { RequestError } from './types';
 
-export const getErrorData = (e: Error): RequestError => ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getErrorData = (e: any): RequestError => ({
   responseData: (e as AxiosError)?.response || null,
   errorMsg: e.message,
 });
