@@ -5,4 +5,5 @@ export interface DataGridRowProps {
   row: DataGridRow;
   num: number;
   searchStr: string;
+  actionPanelRenderFn(id: number): JSX.Element;
 }

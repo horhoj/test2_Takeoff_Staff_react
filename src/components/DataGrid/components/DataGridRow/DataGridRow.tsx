@@ -8,10 +8,12 @@ export const DataGridRow: React.FC<DataGridRowProps> = ({
   fieldList,
   num,
   searchStr,
+  actionPanelRenderFn,
 }) => {
   return (
     <TableRow>
       <TableCell>{num}</TableCell>
+      <TableCell>{actionPanelRenderFn(row.id)}</TableCell>
       {fieldList.map((field) => (
         <TableCell key={field.id}>
           <CellValue searchStr={searchStr} value={row[field.name]} />

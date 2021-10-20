@@ -13,6 +13,7 @@ export const DataGrid: React.FC<DataGridProps> = ({
   sortAsc,
   searchStr,
   disabled,
+  actionPanelRenderFn,
 }) => {
   return (
     <Wrap>
@@ -32,6 +33,7 @@ export const DataGrid: React.FC<DataGridProps> = ({
               fieldList={fieldList}
               num={numOffset + index + 1}
               searchStr={searchStr}
+              actionPanelRenderFn={actionPanelRenderFn}
             />
           ))}
         </TableBody>

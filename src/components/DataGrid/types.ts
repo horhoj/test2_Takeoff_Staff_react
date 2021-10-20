@@ -7,6 +7,7 @@ export interface DataGridProps {
   sortAsc: boolean;
   searchStr: string;
   disabled: boolean;
+  actionPanelRenderFn(id: number): JSX.Element;
 }
 
 export interface DataGridField<T = string> {

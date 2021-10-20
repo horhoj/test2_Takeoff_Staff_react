@@ -3,6 +3,8 @@ import { Box, Button, Pagination, styled } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import UpdateIcon from '@mui/icons-material/Update';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
   contactListSelectors,
@@ -11,6 +13,7 @@ import {
 import { DataGrid } from '../../components/DataGrid';
 import { ContactListItemKeys } from '../types';
 import { DebouncedInput } from '../../components/DebouncedInput';
+import { logger } from '../../utils/logger';
 import { FIELD_LIST } from './const';
 
 export const ContactListForm: React.FC = () => {
@@ -46,6 +49,29 @@ export const ContactListForm: React.FC = () => {
 
   const handleUpdateBtnClick = () => {
     dispatch(contactListWorkers.fetchData());
+  };
+
+  const handleEditBtnClick = (id: number) => {
+    logger('update', id);
+  };
+
+  const handleDeleteBtnClick = (id: number) => {
+    if (confirm('удалить ?')) {
+      logger('delete', id);
+    }
+  };
+
+  const actionPanelRenderFn = (id: number): JSX.Element => {
+    return (
+      <Box>
+        <ControlPanelButton onClick={() => handleEditBtnClick(id)}>
+          <EditIcon color={'warning'} />
+        </ControlPanelButton>
+        <ControlPanelButton onClick={() => handleDeleteBtnClick(id)}>
+          <DeleteIcon color={'error'} />
+        </ControlPanelButton>
+      </Box>
+    );
   };
 
   return (
@@ -89,6 +115,7 @@ export const ContactListForm: React.FC = () => {
               sortAsc={Boolean(requestOptions.sort_asc)}
               searchStr={requestOptions.search}
               disabled={isLoading}
+              actionPanelRenderFn={actionPanelRenderFn}
             />
           </Box>
 

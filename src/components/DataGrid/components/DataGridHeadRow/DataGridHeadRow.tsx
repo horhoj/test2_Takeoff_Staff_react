@@ -30,6 +30,9 @@ export const DataGridHeadRow: React.FC<DataGridHeadRowProps> = ({
         <TableCell>
           <Typography component={'span'}>№</Typography>
         </TableCell>
+        <TableCell>
+          <Typography component={'span'}>Действия</Typography>
+        </TableCell>
         {fieldList.map((field) => (
           <TableCell key={field.id}>
             <Button
