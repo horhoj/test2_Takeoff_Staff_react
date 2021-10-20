@@ -1,5 +1,5 @@
 import { SignIn } from '../pages/SignIn';
-import { Contacts } from '../pages/contacts';
+import { ContactList } from '../pages/ContactList';
 import { RouteItem } from './types';
 
 export const routes: RouteItem[] = [
@@ -17,6 +17,6 @@ export const routes: RouteItem[] = [
     exact: true,
     private: true,
     always: false,
-    component: Contacts,
+    component: ContactList,
   },
 ];

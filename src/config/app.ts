@@ -12,3 +12,5 @@ export const DEFAULT_REQUEST_HEADERS = {
 };
 
 export const DEFAULT_HOME_PAGE: RouterPathNames = 'contactList';
+
+export const DEFAULT_ENTITY_LIST_PER_PAGE = 10;
