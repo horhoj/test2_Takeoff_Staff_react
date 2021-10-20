@@ -57,20 +57,26 @@ export const ContactListForm: React.FC = () => {
 
   const handleDeleteBtnClick = (id: number) => {
     if (confirm('удалить ?')) {
-      logger('delete', id);
+      dispatch(contactListWorkers.deleteContact(id));
     }
   };
 
   const actionPanelRenderFn = (id: number): JSX.Element => {
     return (
-      <Box>
-        <ControlPanelButton onClick={() => handleEditBtnClick(id)}>
-          <EditIcon color={'warning'} />
+      <ActionPanelWrap>
+        <ControlPanelButton
+          onClick={() => handleEditBtnClick(id)}
+          disabled={isLoading}
+        >
+          <StyledEditIcon disabled={isLoading} />
         </ControlPanelButton>
-        <ControlPanelButton onClick={() => handleDeleteBtnClick(id)}>
-          <DeleteIcon color={'error'} />
+        <ControlPanelButton
+          onClick={() => handleDeleteBtnClick(id)}
+          disabled={isLoading}
+        >
+          <StyledDeleteIcon disabled={isLoading} />
         </ControlPanelButton>
-      </Box>
+      </ActionPanelWrap>
     );
   };
 
@@ -151,4 +157,21 @@ const ControlPanelButton = styled(Button)`
 
 const Wrap = styled(Box)`
   padding: 20px;
+`;
+
+const StyledEditIcon = styled(EditIcon)<{ disabled: boolean }>`
+  color: ${({ disabled, theme }) =>
+    disabled ? theme.palette.grey.A400 : theme.palette.warning.main};
+  transition: color 300ms ease;
+`;
+
+const StyledDeleteIcon = styled(DeleteIcon)<{ disabled: boolean }>`
+  color: ${({ disabled, theme }) =>
+    disabled ? theme.palette.grey.A400 : theme.palette.error.main};
+  transition: color 300ms ease;
+`;
+
+const ActionPanelWrap = styled(Box)`
+  display: flex;
+  flex-wrap: nowrap;
 `;

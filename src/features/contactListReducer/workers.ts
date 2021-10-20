@@ -1,5 +1,6 @@
 import { ContactListItemKeys } from '../types';
 import {
+  ContactListDeleteWorker,
   ContactListFetchDataWorker,
   ContactListGotoPageWorker,
   ContactListSearchWorker,
@@ -27,4 +28,9 @@ export const sort = (
 export const search = (searchStr: string): ContactListSearchWorker => ({
   type: ContactListWorkerType.SEARCH,
   payload: searchStr,
+});
+
+export const deleteContact = (id: number): ContactListDeleteWorker => ({
+  type: ContactListWorkerType.DELETE,
+  payload: id,
 });

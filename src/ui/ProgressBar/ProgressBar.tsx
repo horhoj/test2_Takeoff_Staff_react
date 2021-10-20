@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, styled } from '@mui/material';
 import { useAppSelector } from '../../store/hooks';
 import { authSelectors } from '../../store/auth';
 import { contactListSelectors } from '../../features/contactListReducer';
@@ -11,5 +11,14 @@ export const ProgressBar: React.FC = () => {
 
   const isLoading = auth || userData || contactList;
 
-  return isLoading ? <LinearProgress color="secondary" /> : null;
+  return isLoading ? <StyledLinearProgress color="secondary" /> : null;
 };
+
+const StyledLinearProgress = styled(LinearProgress)`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 10000;
+`;

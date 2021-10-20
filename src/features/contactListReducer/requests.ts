@@ -8,3 +8,10 @@ export const getContactListRequestConfig = (
   method: 'get',
   params: requestOptions,
 });
+
+export const getDeleteCategoryRequestConfig = (
+  id: number,
+): AxiosRequestConfig => ({
+  url: `/contacts/${id}`,
+  method: 'delete',
+});

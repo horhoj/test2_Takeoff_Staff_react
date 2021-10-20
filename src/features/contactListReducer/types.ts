@@ -45,3 +45,8 @@ export type ContactListSearchWorker = ContactListWorker<
   ContactListWorkerType.SEARCH,
   string
 >;
+
+export type ContactListDeleteWorker = ContactListWorker<
+  ContactListWorkerType.DELETE,
+  number
+>;

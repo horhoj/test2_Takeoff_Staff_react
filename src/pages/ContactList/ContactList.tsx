@@ -11,6 +11,6 @@ export const ContactList: React.FC = () => {
 };
 
 const Container = styled(Box)`
-  max-width: 1024px;
+  max-width: 1100px;
   margin: 0 auto;
 `;
