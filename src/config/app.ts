@@ -13,4 +13,8 @@ export const DEFAULT_REQUEST_HEADERS = {
 
 export const DEFAULT_HOME_PAGE: RouterPathNames = 'contactList';
 
-export const DEFAULT_ENTITY_LIST_PER_PAGE = 10;
+export const DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES = [
+  5, 10, 25, 50, 999,
+] as const;
+
+export const DEFAULT_ENTITY_LIST_PER_PAGE: typeof DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES[number] = 10;

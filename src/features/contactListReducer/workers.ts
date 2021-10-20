@@ -1,5 +1,6 @@
 import { ContactListItemKeys } from '../types';
 import {
+  ContactListChangePerPage,
   ContactListDeleteWorker,
   ContactListFetchDataWorker,
   ContactListGotoPageWorker,
@@ -33,4 +34,9 @@ export const search = (searchStr: string): ContactListSearchWorker => ({
 export const deleteContact = (id: number): ContactListDeleteWorker => ({
   type: ContactListWorkerType.DELETE,
   payload: id,
+});
+
+export const changePerPage = (perPage: number): ContactListChangePerPage => ({
+  type: ContactListWorkerType.CHANGE_PER_PAGE,
+  payload: perPage,
 });

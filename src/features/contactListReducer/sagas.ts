@@ -5,6 +5,7 @@ import { getErrorData } from '../../store/helpers';
 import { ContactListResponse, ContactListResponseSchema } from '../types';
 import { requestExecutor } from '../../store/sagas';
 import {
+  ContactListChangePerPage,
   ContactListDeleteWorker,
   ContactListGotoPageWorker,
   ContactListSearchWorker,
@@ -23,6 +24,7 @@ export function* contactListWatcher(): SagaIterator {
   yield takeEvery(ContactListWorkerType.SORT, sortWorker);
   yield takeEvery(ContactListWorkerType.SEARCH, searchWorker);
   yield takeEvery(ContactListWorkerType.DELETE, deleteContactWorker);
+  yield takeEvery(ContactListWorkerType.CHANGE_PER_PAGE, changePerPageWorker);
 }
 
 export function* fetchDataWorker(): SagaIterator {
@@ -77,10 +79,22 @@ export function* searchWorker(action: ContactListSearchWorker): SagaIterator {
   yield call(fetchDataWorker);
 }
 
+export function* changePerPageWorker(
+  action: ContactListChangePerPage,
+): SagaIterator {
+  yield put(
+    contactListActions.setRequestOptions({
+      per_page: action.payload,
+      page: 1,
+    }),
+  );
+
+  yield call(fetchDataWorker);
+}
+
 export function* deleteContactWorker(
   action: ContactListDeleteWorker,
 ): SagaIterator {
-  // yield call(logger, 'deleteContactWorker', action.payload);
   try {
     yield put(contactListActions.setIsLoading(true));
     yield put(contactListActions.setRequestError(null));

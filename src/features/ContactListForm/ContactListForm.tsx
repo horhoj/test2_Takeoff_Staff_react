@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Pagination, styled } from '@mui/material';
+import {
+  Box,
+  Button,
+  MenuItem,
+  Pagination,
+  Select,
+  styled,
+} from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import UpdateIcon from '@mui/icons-material/Update';
@@ -14,6 +21,7 @@ import { DataGrid } from '../../components/DataGrid';
 import { ContactListItemKeys } from '../types';
 import { DebouncedInput } from '../../components/DebouncedInput';
 import { logger } from '../../utils/logger';
+import { DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES } from '../../config/app';
 import { FIELD_LIST } from './const';
 
 export const ContactListForm: React.FC = () => {
@@ -59,6 +67,10 @@ export const ContactListForm: React.FC = () => {
     if (confirm('удалить ?')) {
       dispatch(contactListWorkers.deleteContact(id));
     }
+  };
+
+  const handleChangePerPage = (perPage: number) => {
+    dispatch(contactListWorkers.changePerPage(perPage));
   };
 
   const actionPanelRenderFn = (id: number): JSX.Element => {
@@ -124,6 +136,22 @@ export const ContactListForm: React.FC = () => {
               actionPanelRenderFn={actionPanelRenderFn}
             />
           </Box>
+          <Center>
+            <StyledSelect
+              value={requestOptions.per_page}
+              disabled={isLoading}
+              size={'small'}
+              onChange={(e) => {
+                handleChangePerPage(Number(e.target.value));
+              }}
+            >
+              {DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES.map((value) => (
+                <MenuItem value={value} key={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </StyledSelect>
+          </Center>
 
           <Box>
             <StyledPagination
@@ -174,4 +202,13 @@ const StyledDeleteIcon = styled(DeleteIcon)<{ disabled: boolean }>`
 const ActionPanelWrap = styled(Box)`
   display: flex;
   flex-wrap: nowrap;
+`;
+
+const StyledSelect = styled(Select)`
+  margin-top: 20px;
+`;
+
+const Center = styled(Box)`
+  display: flex;
+  justify-content: center;
 `;

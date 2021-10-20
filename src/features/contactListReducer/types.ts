@@ -50,3 +50,8 @@ export type ContactListDeleteWorker = ContactListWorker<
   ContactListWorkerType.DELETE,
   number
 >;
+
+export type ContactListChangePerPage = ContactListWorker<
+  ContactListWorkerType.CHANGE_PER_PAGE,
+  number
+>;
