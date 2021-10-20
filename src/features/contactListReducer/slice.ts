@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_ENTITY_LIST_PER_PAGE } from '../../config/app';
 import { ContactListItemKeys, ContactListResponse } from '../types';
 import { RequestError } from '../../store/types';
-import { ContactListState } from './types';
+import { ContactListRequestOptions, ContactListState } from './types';
 
 const initialState: ContactListState = {
   isLoading: false,
@@ -30,6 +30,13 @@ export const contactListSlice = createSlice({
       action: PayloadAction<ContactListResponse | null>,
     ) => {
       state.contactListResponse = action.payload;
+    },
+
+    setRequestOptions: (
+      state,
+      action: PayloadAction<Partial<ContactListRequestOptions>>,
+    ) => {
+      state.requestOptions = { ...state.requestOptions, ...action.payload };
     },
 
     sort: (state, action: PayloadAction<ContactListItemKeys>) => {

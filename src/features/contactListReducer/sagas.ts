@@ -4,16 +4,23 @@ import { logger } from '../../utils/logger';
 import { getErrorData } from '../../store/helpers';
 import { ContactListResponse, ContactListResponseSchema } from '../types';
 import { requestExecutor } from '../../store/sagas';
-import { ContactListWorkerType } from './types';
+import {
+  ContactListGotoPageWorker,
+  ContactListSearchWorker,
+  ContactListSortWorker,
+  ContactListWorkerType,
+} from './types';
 import { getContactListRequestConfig } from './requests';
 import { contactListActions, contactListSelectors } from '.';
 
 export function* contactListWatcher(): SagaIterator {
   yield takeEvery(ContactListWorkerType.FETCH_DATA, fetchDataWorker);
+  yield takeEvery(ContactListWorkerType.GO_TO_PAGE, goToPageWorker);
+  yield takeEvery(ContactListWorkerType.SORT, sortWorker);
+  yield takeEvery(ContactListWorkerType.SEARCH, searchWorker);
 }
 
 export function* fetchDataWorker(): SagaIterator {
-  // yield call(logger, 'fetchDataWorker');
   try {
     yield put(contactListActions.setIsLoading(true));
     yield put(contactListActions.setRequestError(null));
@@ -38,4 +45,29 @@ export function* fetchDataWorker(): SagaIterator {
   } finally {
     yield put(contactListActions.setIsLoading(false));
   }
+}
+
+export function* goToPageWorker(
+  action: ContactListGotoPageWorker,
+): SagaIterator {
+  yield put(contactListActions.setRequestOptions({ page: action.payload }));
+  yield call(fetchDataWorker);
+}
+
+export function* sortWorker(action: ContactListSortWorker): SagaIterator {
+  yield put(contactListActions.sort(action.payload));
+  yield call(fetchDataWorker);
+}
+
+export function* searchWorker(action: ContactListSearchWorker): SagaIterator {
+  yield call(logger, 'searchWorker', action.payload);
+  yield put(
+    contactListActions.setRequestOptions({
+      search: action.payload,
+      page: 1,
+      sort_field: 'id',
+      sort_asc: 1,
+    }),
+  );
+  yield call(fetchDataWorker);
 }

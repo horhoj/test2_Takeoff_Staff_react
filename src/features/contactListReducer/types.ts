@@ -30,3 +30,18 @@ export type ContactListFetchDataWorker = ContactListWorker<
   ContactListWorkerType.FETCH_DATA,
   null
 >;
+
+export type ContactListGotoPageWorker = ContactListWorker<
+  ContactListWorkerType.GO_TO_PAGE,
+  number
+>;
+
+export type ContactListSortWorker = ContactListWorker<
+  ContactListWorkerType.SORT,
+  ContactListItemKeys
+>;
+
+export type ContactListSearchWorker = ContactListWorker<
+  ContactListWorkerType.SEARCH,
+  string
+>;

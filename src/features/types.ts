@@ -20,4 +20,4 @@ export const ContactListResponseSchema = yup.object({
 });
 
 export interface ContactListResponse
-  extends yup.Asserts<typeof ContactListItemSchema> {}
+  extends yup.Asserts<typeof ContactListResponseSchema> {}
