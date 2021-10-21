@@ -1,6 +1,7 @@
 import { SignIn } from '../pages/SignIn';
 import { ContactList } from '../pages/ContactList';
 import { Contact } from '../pages/Contact';
+import { Page404 } from '../pages/Page404';
 import { RouteItem } from './types';
 
 export const routes: RouteItem[] = [
@@ -27,5 +28,13 @@ export const routes: RouteItem[] = [
     private: true,
     always: false,
     component: Contact,
+  },
+  {
+    name: 'page404',
+    path: '*',
+    exact: false,
+    private: false,
+    always: true,
+    component: Page404,
   },
 ];

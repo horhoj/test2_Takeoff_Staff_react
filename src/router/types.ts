@@ -1,4 +1,4 @@
-export type RouterPathNames = 'contactList' | 'contact' | 'signIn';
+export type RouterPathNames = 'contactList' | 'contact' | 'signIn' | 'page404';
 
 export interface RouteItem {
   name: RouterPathNames;
