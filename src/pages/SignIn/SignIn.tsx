@@ -4,6 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { FormikConfig, useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { authSelectors, authWorkers } from '../../store/auth';
+import { AlertBlock } from '../../components/AlertBlock';
 import { SignUpFormData, signUpSchema } from './types';
 
 const initialValues: SignUpFormData = {
@@ -26,7 +27,6 @@ export const SignIn: React.FC = () => {
 
   return (
     <Wrap>
-      <div>{JSON.stringify(requestError, null, 2)}</div>
       <Form
         noValidate
         onSubmit={formik.handleSubmit}
@@ -39,6 +39,11 @@ export const SignIn: React.FC = () => {
         <ElementWrap marginTop={20} center={true}>
           <Title component={'h2'}>SignIn</Title>
         </ElementWrap>
+        {requestError ? (
+          <ElementWrap marginTop={20}>
+            <AlertBlock requestError={requestError} />
+          </ElementWrap>
+        ) : null}
         <ElementWrap marginTop={20}>
           <TextField
             fullWidth={true}

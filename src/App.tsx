@@ -8,7 +8,6 @@ import { Header } from './components/Header';
 
 export const App: React.FC = () => {
   const isLoadingUserData = useAppSelector(authSelectors.getIsLoadingUserData);
-  // const isAuthenticated = useAppSelector(authSelectors.getIsAuthenticated);
 
   const dispatch = useAppDispatch();
 
@@ -19,7 +18,7 @@ export const App: React.FC = () => {
     <>
       <ProgressBar />
       <Header />
-      {isLoadingUserData ? null : <RoutesStructure />}
+      <main>{isLoadingUserData ? null : <RoutesStructure />}</main>
     </>
   );
 };

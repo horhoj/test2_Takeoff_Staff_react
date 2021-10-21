@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
   );
 };
 
-const Wrap = styled(Box)`
+const Wrap = styled('header')`
   width: 100%;
   padding: 0 20px;
 `;

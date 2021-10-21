@@ -27,6 +27,7 @@ import {
 } from '../../../config/app';
 import { getPathByName } from '../../../router';
 import { appActions } from '../../../store/app';
+import { AlertBlock } from '../../../components/AlertBlock';
 import { FIELD_LIST } from './const';
 
 export const ContactListForm: React.FC = () => {
@@ -36,6 +37,7 @@ export const ContactListForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(contactListSelectors.getIsLoading);
   const requestOptions = useAppSelector(contactListSelectors.getRequestOptions);
+  const requestError = useAppSelector(contactListSelectors.getRequestError);
 
   useEffect(() => {
     dispatch(contactListWorkers.fetchData());
@@ -105,81 +107,84 @@ export const ContactListForm: React.FC = () => {
   };
 
   return (
-    <Wrap>
-      {contactListResponse ? (
-        <>
-          <ControlPanel>
-            <ControlPanelButton
-              size={'small'}
-              disabled={isLoading}
-              onClick={handleAddNewContact}
-            >
-              <AddIcon />
-            </ControlPanelButton>
-            <ControlPanelButton
-              disabled={isLoading}
-              onClick={handleUpdateBtnClick}
-            >
-              <UpdateIcon />
-            </ControlPanelButton>
-            <ControlPanelButton
-              onClick={handleClearSearchResult}
-              disabled={isLoading}
-            >
-              <ClearIcon />
-            </ControlPanelButton>
-            <DebouncedInput
-              disabled={isLoading}
-              value={requestOptions.search}
-              placeholder={'поиск'}
-              delay={600}
-              handleSearchCb={handleSearch}
-            />
-          </ControlPanel>
-          <Box>
-            <DataGrid
-              fieldList={FIELD_LIST}
-              rowList={contactListResponse.data}
-              numOffset={
-                (contactListResponse.current_page - 1) *
-                contactListResponse.per_page
-              }
-              onColumnClick={handleColumnClick}
-              sortField={requestOptions.sort_field}
-              sortAsc={Boolean(requestOptions.sort_asc)}
-              searchStr={requestOptions.search}
-              disabled={isLoading}
-              actionPanelRenderFn={actionPanelRenderFn}
-            />
-          </Box>
-          <Center>
-            <StyledSelect
-              value={requestOptions.per_page}
-              disabled={isLoading}
-              size={'small'}
-              onChange={(e) => {
-                handleChangePerPage(Number(e.target.value));
-              }}
-            >
-              {DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES.map((value) => (
-                <MenuItem value={value} key={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </StyledSelect>
-          </Center>
+    <>
+      {requestError ? <AlertBlock requestError={requestError} /> : null}
+      <Wrap>
+        {contactListResponse ? (
+          <>
+            <ControlPanel>
+              <ControlPanelButton
+                size={'small'}
+                disabled={isLoading}
+                onClick={handleAddNewContact}
+              >
+                <AddIcon />
+              </ControlPanelButton>
+              <ControlPanelButton
+                disabled={isLoading}
+                onClick={handleUpdateBtnClick}
+              >
+                <UpdateIcon />
+              </ControlPanelButton>
+              <ControlPanelButton
+                onClick={handleClearSearchResult}
+                disabled={isLoading}
+              >
+                <ClearIcon />
+              </ControlPanelButton>
+              <DebouncedInput
+                disabled={isLoading}
+                value={requestOptions.search}
+                placeholder={'поиск'}
+                delay={600}
+                handleSearchCb={handleSearch}
+              />
+            </ControlPanel>
+            <Box>
+              <DataGrid
+                fieldList={FIELD_LIST}
+                rowList={contactListResponse.data}
+                numOffset={
+                  (contactListResponse.current_page - 1) *
+                  contactListResponse.per_page
+                }
+                onColumnClick={handleColumnClick}
+                sortField={requestOptions.sort_field}
+                sortAsc={Boolean(requestOptions.sort_asc)}
+                searchStr={requestOptions.search}
+                disabled={isLoading}
+                actionPanelRenderFn={actionPanelRenderFn}
+              />
+            </Box>
+            <Center>
+              <StyledSelect
+                value={requestOptions.per_page}
+                disabled={isLoading}
+                size={'small'}
+                onChange={(e) => {
+                  handleChangePerPage(Number(e.target.value));
+                }}
+              >
+                {DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES.map((value) => (
+                  <MenuItem value={value} key={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </StyledSelect>
+            </Center>
 
-          <Box>
-            <StyledPagination
-              size={'small'}
-              page={contactListResponse.current_page}
-              count={contactListResponse.last_page}
-              onChange={handlePaginationPageBtnClk}
-            />
-          </Box>
-        </>
-      ) : null}
-    </Wrap>
+            <Box>
+              <StyledPagination
+                size={'small'}
+                page={contactListResponse.current_page}
+                count={contactListResponse.last_page}
+                onChange={handlePaginationPageBtnClk}
+              />
+            </Box>
+          </>
+        ) : null}
+      </Wrap>
+    </>
   );
 };
 
