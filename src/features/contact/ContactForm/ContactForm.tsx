@@ -127,11 +127,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ id }) => {
 
         <WrapElement mt={20}>
           <ControlPanel>
-            <Button
-              type={'submit'}
-              variant={'contained'}
-              disabled={isLoading || (!isNew && !formik.dirty)}
-            >
+            <Button type={'submit'} variant={'contained'} disabled={isLoading}>
               Сохранить
             </Button>
             <Button

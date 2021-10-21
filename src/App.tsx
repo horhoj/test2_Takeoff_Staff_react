@@ -4,6 +4,7 @@ import './GlobalStyles.css';
 import { ProgressBar } from './ui/ProgressBar';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { authSelectors, authWorkers } from './store/auth';
+import { Header } from './components/Header';
 
 export const App: React.FC = () => {
   const isLoadingUserData = useAppSelector(authSelectors.getIsLoadingUserData);
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
   return (
     <>
       <ProgressBar />
+      <Header />
       {isLoadingUserData ? null : <RoutesStructure />}
     </>
   );

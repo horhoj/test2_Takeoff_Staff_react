@@ -11,7 +11,7 @@ const initialState: ContactListState = {
   requestOptions: {
     page: 1,
     per_page: DEFAULT_ENTITY_LIST_PER_PAGE,
-    sort_field: 'id',
+    sort_field: 'last_name',
     search: '',
     sort_asc: 1,
   },
