@@ -17,4 +17,6 @@ export const DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES = [
   5, 10, 25, 50, 999,
 ] as const;
 
-export const DEFAULT_ENTITY_LIST_PER_PAGE: typeof DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES[number] = 10;
+export const DEFAULT_ENTITY_LIST_PER_PAGE: typeof DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES[number] = 5;
+
+export const NEW_ITEM_ID = 'new';

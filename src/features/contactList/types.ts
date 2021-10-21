@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { getCommonResponseSchemaFieldsForAnEntityList } from '../types/helpers';
+import { getCommonResponseSchemaFieldsForAnEntityList } from '../../types/helpers';
 
 export const ContactListItemSchema = yup.object({
   id: yup.number().required(),

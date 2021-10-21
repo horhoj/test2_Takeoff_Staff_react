@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DEFAULT_ENTITY_LIST_PER_PAGE } from '../../config/app';
+import { DEFAULT_ENTITY_LIST_PER_PAGE } from '../../../config/app';
 import { ContactListItemKeys, ContactListResponse } from '../types';
-import { RequestError } from '../../store/types';
+import { RequestError } from '../../../store/types';
 import { ContactListRequestOptions, ContactListState } from './types';
 
 const initialState: ContactListState = {

@@ -1,6 +1,6 @@
 import { ContactListItemKeys, ContactListResponse } from '../types';
-import { EntityListRequestOptions } from '../../types/commonTypes';
-import { RequestError } from '../../store/types';
+import { EntityListRequestOptions } from '../../../types/commonTypes';
+import { RequestError } from '../../../store/types';
 
 export type ContactListRequestOptions =
   EntityListRequestOptions<ContactListItemKeys>;

@@ -1,9 +1,9 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
-import { logger } from '../../utils/logger';
-import { getErrorData } from '../../store/helpers';
+import { logger } from '../../../utils/logger';
+import { getErrorData } from '../../../store/helpers';
 import { ContactListResponse, ContactListResponseSchema } from '../types';
-import { requestExecutor } from '../../store/sagas';
+import { requestExecutor } from '../../../store/sagas';
 import {
   ContactListChangePerPage,
   ContactListDeleteWorker,
@@ -16,7 +16,7 @@ import {
   getContactListRequestConfig,
   getDeleteCategoryRequestConfig,
 } from './requests';
-import { contactListActions, contactListSelectors } from '.';
+import { contactListActions, contactListSelectors } from './index';
 
 export function* contactListWatcher(): SagaIterator {
   yield takeEvery(ContactListWorkerType.FETCH_DATA, fetchDataWorker);

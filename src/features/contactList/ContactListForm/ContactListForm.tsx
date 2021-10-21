@@ -12,16 +12,21 @@ import AddIcon from '@mui/icons-material/Add';
 import UpdateIcon from '@mui/icons-material/Update';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   contactListSelectors,
   contactListWorkers,
 } from '../contactListReducer';
-import { DataGrid } from '../../components/DataGrid';
+import { DataGrid } from '../../../components/DataGrid';
 import { ContactListItemKeys } from '../types';
-import { DebouncedInput } from '../../components/DebouncedInput';
-import { logger } from '../../utils/logger';
-import { DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES } from '../../config/app';
+import { DebouncedInput } from '../../../components/DebouncedInput';
+import { logger } from '../../../utils/logger';
+import {
+  DEFAULT_ENTITY_LIST_ALLOWABLE_VALUES,
+  NEW_ITEM_ID,
+} from '../../../config/app';
+import { getPathByName } from '../../../router';
+import { appActions } from '../../../store/app';
 import { FIELD_LIST } from './const';
 
 export const ContactListForm: React.FC = () => {
@@ -60,7 +65,8 @@ export const ContactListForm: React.FC = () => {
   };
 
   const handleEditBtnClick = (id: number) => {
-    logger('update', id);
+    const path = getPathByName('contact', { id });
+    dispatch(appActions.redirect(path));
   };
 
   const handleDeleteBtnClick = (id: number) => {
@@ -71,6 +77,12 @@ export const ContactListForm: React.FC = () => {
 
   const handleChangePerPage = (perPage: number) => {
     dispatch(contactListWorkers.changePerPage(perPage));
+  };
+
+  const handleAddNewContact = () => {
+    logger('handleAddNewContact');
+    const path = getPathByName('contact', { id: NEW_ITEM_ID });
+    dispatch(appActions.redirect(path));
   };
 
   const actionPanelRenderFn = (id: number): JSX.Element => {
@@ -97,7 +109,11 @@ export const ContactListForm: React.FC = () => {
       {contactListResponse ? (
         <>
           <ControlPanel>
-            <ControlPanelButton size={'small'} disabled={isLoading}>
+            <ControlPanelButton
+              size={'small'}
+              disabled={isLoading}
+              onClick={handleAddNewContact}
+            >
               <AddIcon />
             </ControlPanelButton>
             <ControlPanelButton

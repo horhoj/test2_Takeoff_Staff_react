@@ -1,5 +1,6 @@
 import { SignIn } from '../pages/SignIn';
 import { ContactList } from '../pages/ContactList';
+import { Contact } from '../pages/Contact';
 import { RouteItem } from './types';
 
 export const routes: RouteItem[] = [
@@ -13,10 +14,18 @@ export const routes: RouteItem[] = [
   },
   {
     name: 'contactList',
-    path: '/contact-list',
+    path: '/contacts',
     exact: true,
     private: true,
     always: false,
     component: ContactList,
+  },
+  {
+    name: 'contact',
+    path: '/contacts/:id',
+    exact: true,
+    private: true,
+    always: false,
+    component: Contact,
   },
 ];

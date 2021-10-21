@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, styled } from '@mui/material';
-import { ContactListForm } from '../../features/ContactListForm';
+import { ContactListForm } from '../../features/contactList/ContactListForm';
 
 export const ContactList: React.FC = () => {
   return (

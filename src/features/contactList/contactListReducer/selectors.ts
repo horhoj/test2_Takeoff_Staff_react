@@ -1,4 +1,4 @@
-import { RequestError, RootState } from '../../store/types';
+import { RequestError, RootState } from '../../../store/types';
 import { ContactListResponse } from '../types';
 import { ContactListRequestOptions } from './types';
 
